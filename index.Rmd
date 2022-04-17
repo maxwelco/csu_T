@@ -1,0 +1,151 @@
+---
+title: "Presentation Ninja"
+subtitle: "&#x2694;&#xFE0F; xaringan +<br/>&#x1F60E; xaringanthemer"  
+author: 
+  - "Yihui Xie"
+  - "Garrick Aden-Buie"
+date: '`r Sys.Date()`'
+output:
+  xaringan::moon_reader:
+    css: xaringan-themer.css
+    nature:
+      slideNumberFormat: "%current%"
+      highlightStyle: github
+      highlightLines: true
+      ratio: 16:9
+      countIncrementalSlides: true
+---
+
+```{r include=FALSE}
+library(tidyverse)
+library(leaflet)
+library(leaflet.providers)
+library(leaflet.extras)
+library(icons)
+library(tidyUSDA)
+library(plotly)
+# to read https://www150.statcan.gc.ca/n1/pub/95-640-x/2016001/article/14804-eng.htm
+# https://www.thecanadianencyclopedia.ca/en/article/agriculture-in-canada#:~:text=Among%20Canada's%20top%20agricultural%20products,agricultural%20products%20in%20the%20world.
+```
+
+
+```{r setup, include=FALSE}
+options(htmltools.dir.version = FALSE)
+knitr::opts_chunk$set(
+  fig.width=9, fig.height=3.5, fig.retina=3,
+  out.width = "100%",
+  cache = FALSE,
+  echo = TRUE,
+  message = FALSE, 
+  warning = FALSE,
+  hiline = TRUE
+)
+```
+
+```{r xaringan-themer, include=FALSE, warning=FALSE}
+library(xaringanthemer)
+style_duo_accent(
+  primary_color = "#1381B0",
+  secondary_color = "#FF961C",
+  inverse_header_color = "#FFFFFF"
+)
+```
+
+
+
+```{r features, include=FALSE, warning=FALSE}
+xaringanExtra::use_search(show_icon = TRUE,
+                          position = "top-left")
+xaringanExtra::use_webcam()
+#xaringanExtra::use_freezeframe()
+xaringanExtra::use_tile_view() # use letter O
+xaringanExtra::use_share_again()
+xaringanExtra::use_scribble() # use letter S
+xaringanExtra::use_fit_screen()
+xaringanExtra::use_broadcast() # use P
+```
+
+---
+
+background-image: url(https://source.unsplash.com/ZYmk2tZ1fck)
+background-position: right
+background-size: contain
+
+## Agenda
+
+
+- About me
+  - Background experiences
+  
+<br>
+- Research experiences
+  - Basic and applied research
+  
+<br>
+- Oliveira's lab at Colorado State University
+  - Proposed short and long term projects
+
+
+
+
+.footnote[Image: Daniel Norris/Unsplash]
+
+
+
+---
+
+class: middle, center
+
+## Maxwel Coura Oliveira
+
+<img style="border-radius: 50%;" src="images/foto.jpg" width="150px"/>
+
+
+
+
+[`r icon_style(fontawesome("github"), style = "solid")` @maxwelco](https://github.com/maxwelco)  
+[`r icon_style(fontawesome("twitter"), style = "solid")` @maxwelco](https://twitter.com/maxwelco)  
+[`r icon_style(fontawesome("link"), style = "solid")` maxweeds.rbind.io](https://maxweeds.rbind.io)  
+[`r icon_style(fontawesome("envelope-square"), style = "solid")` maxwelco@gmail.com](mailto:maxwelco@gmail.com)
+
+???
+
+- I am on the social media. Please fee free to follow me
+
+- Describe my social media
+
+- My blog, github, twitter
+
+---
+
+background-image: url(https://upload.wikimedia.org/wikipedia/commons/thumb/2/25/Aureolus_Theophrastus_Bombastus_von_Hohenheim_%28Paracelsus%29._Wellcome_V0004455.jpg/440px-Aureolus_Theophrastus_Bombastus_von_Hohenheim_%28Paracelsus%29._Wellcome_V0004455.jpg)
+background-position: right
+background-size: contain
+
+## Philippus Aureolus <br>Theophrastus <br>Bombastus von Hohenheim
+
+#### (1493 – 24 September 1541)
+
+--
+
+> Alle Ding sind Gifft und nichts ohn Gifft. <br>Allein die
+ Dosis macht das ein Ding kein Gifft ist 
+<br>
+
+--
+
+<br>
+> All things are poison and are not poison; <br>only the dose makes a thing not a poison 
+
+--
+
+<br>
+
+**Paracelsus**, the "father of toxicology"
+
+
+.footnote[Image: Wikipedia]
+
+---
+
+
