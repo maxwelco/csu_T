@@ -1,10 +1,9 @@
 ---
-title: "Presentation Ninja"
-subtitle: "&#x2694;&#xFE0F; xaringan +<br/>&#x1F60E; xaringanthemer"  
+title: "Dose Response Biological Assay in Weed Science"
+subtitle: "BSPM 308"  
 author: 
-  - "Yihui Xie"
-  - "Garrick Aden-Buie"
-date: '`r Sys.Date()`'
+  - "Dr. Maxwel Coura Oliveira (he/him/his)"
+date: '04/26/2022'
 output:
   xaringan::moon_reader:
     css: xaringan-themer.css
@@ -17,6 +16,7 @@ output:
 ---
 
 ```{r include=FALSE}
+library(drc)
 library(tidyverse)
 library(leaflet)
 library(leaflet.providers)
@@ -28,6 +28,16 @@ library(plotly)
 # https://www.thecanadianencyclopedia.ca/en/article/agriculture-in-canada#:~:text=Among%20Canada's%20top%20agricultural%20products,agricultural%20products%20in%20the%20world.
 ```
 
+```{r xaringan-themer, include=FALSE, warning=FALSE}
+library(xaringanthemer)
+style_duo_accent(
+  primary_color = "#1E4D2B",
+  title_slide_background_color= "#1E4D2B",
+  background_color = "#FFFFFF",
+  secondary_color = "#ECC530",
+  inverse_header_color = "#59595B"
+)
+```
 
 ```{r setup, include=FALSE}
 options(htmltools.dir.version = FALSE)
@@ -42,14 +52,7 @@ knitr::opts_chunk$set(
 )
 ```
 
-```{r xaringan-themer, include=FALSE, warning=FALSE}
-library(xaringanthemer)
-style_duo_accent(
-  primary_color = "#1381B0",
-  secondary_color = "#FF961C",
-  inverse_header_color = "#FFFFFF"
-)
-```
+
 
 
 
@@ -147,5 +150,49 @@ background-size: contain
 .footnote[Image: Wikipedia]
 
 ---
+
+## Weed science research
+
+#### Goal
+
+.pull-left[
+- Biological assay is to measure and compare the response of weeds and crops to physical, chemical, biological, or temporal stimuli
+
+- Summaries of biological assays require the use
+ of nonlinear regression models with upper and lower limits,
+ which provide information on the dose required to control the
+ plant species of interes
+]
+
+.pull-right[
+<center>
+<img src="https://agsci.colostate.edu/weedscience/wp-content/uploads/sites/84/2018/04/JustAnotherDay_SClark.jpg" width="600px"/>
+</center>
+]
+
+.footnote[Image: [agsci.colostate.edu/weedscience](https://agsci.colostate.edu/weedscience/pictures/)]
+---
+
+## Curve
+
+```{r message = FALSE, warning = FALSE, echo = FALSE, fig.align='center', out.width='50%', fig.height = 5, fig.width = 5}
+dose <- 1:2
+resp <- rnorm(length(dose))
+# no need to set the seed for the random number generation!
+m <- drm(resp ~ dose, fct = LL.5())
+plot(m)
+```
+
+
+---
+
+## Number of data points
+
+
+
+
+
+---
+
 
 
