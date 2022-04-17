@@ -68,6 +68,17 @@ xaringanExtra::use_fit_screen()
 xaringanExtra::use_broadcast() # use P
 ```
 
+
+## Announcements
+
+
+
+- Read Zimdahl Chapter 10 - Methods of Weed Management and Control
+
+- Homework #2 due tomorrow (04/27/2022)
+
+- Lab this week: Grass weed identification 
+
 ---
 
 background-image: url(https://source.unsplash.com/ZYmk2tZ1fck)
@@ -77,16 +88,17 @@ background-size: contain
 ## Agenda
 
 
-- About me
-  - Background experiences
+- History of dose response
   
 <br>
-- Research experiences
-  - Basic and applied research
+- Curve
+  - Parameters
   
 <br>
-- Oliveira's lab at Colorado State University
-  - Proposed short and long term projects
+- Data points
+
+<br>
+- Interpretation
 
 
 
@@ -142,7 +154,6 @@ background-size: contain
 
 --
 
-<br>
 
 **Paracelsus**, the "father of toxicology"
 
@@ -183,6 +194,11 @@ m <- drm(resp ~ dose, fct = LL.5())
 plot(m)
 ```
 
+---
+
+## Parameters
+
+
 
 ---
 
@@ -193,6 +209,21 @@ plot(m)
 
 
 ---
+
+name: goodbye
+class: right, middle, blue
+
+
+<img style="border-radius: 50%;" src="images/foto.jpg" width="150px"/>
+
+# Thank you!
+
+#### You can find me at...
+
+[`r icon_style(fontawesome("github"), style = "solid")` @maxwelco](https://github.com/maxwelco)  
+[`r icon_style(fontawesome("twitter"), style = "solid")` @maxwelco](https://twitter.com/maxwelco)  
+[`r icon_style(fontawesome("link"), style = "solid")` maxweeds.rbind.io](https://maxweeds.rbind.io)  
+[`r icon_style(fontawesome("envelope-square"), style = "solid")` maxwelco@gmail.com](mailto:maxwelco@gmail.com)
 
 
 
