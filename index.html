@@ -29,6 +29,8 @@
     <script src="index_files/tiny.toast/toast.min.js"></script>
     <link href="index_files/xaringanExtra-broadcast/broadcast.css" rel="stylesheet" />
     <script src="index_files/xaringanExtra-broadcast/broadcast.js"></script>
+    <link href="index_files/panelset/panelset.css" rel="stylesheet" />
+    <script src="index_files/panelset/panelset.js"></script>
     <link href="index_files/countdown/countdown.css" rel="stylesheet" />
     <script src="index_files/countdown/countdown.js"></script>
     <link rel="stylesheet" href="xaringan-themer.css" type="text/css" />
@@ -112,7 +114,7 @@ background-size: contain
 
 - Data points
 
-- Interpretation
+- Analysis and interpretation
 
 
 
@@ -164,7 +166,7 @@ background-size: contain
 
 - Toxicology
 
-- pharmacology and drug development
+- Pharmacology and drug development
 
 - Epidemiology
 
@@ -182,7 +184,7 @@ background-size: contain
 #### Weed research
 
 .pull-left[
-- Measure and compare the response of weeds and crops to physical, chemical, biological, or temporal stimuli
+- Response of weeds and crops to physical, chemical, biological, or temporal stimuli
   - **Herbicide dose response**
   - Critical time for weed control
   - Cumulative weed germination  
@@ -219,7 +221,7 @@ background-size: contain
 &lt;/center&gt;
 
 
-<div class="countdown" id="timer_6261a332" style="right:0;bottom:0;" data-warnwhen="0">
+<div class="countdown" id="timer_6261d90d" style="right:0;bottom:0;" data-warnwhen="0">
 <code class="countdown-time"><span class="countdown-digits minutes">00</span><span class="countdown-digits colon">:</span><span class="countdown-digits seconds">30</span></code>
 </div>
 
@@ -291,9 +293,9 @@ $$
 
 - Plant biomass (g) or relative biomass (%)
 
-- Percent of weed control
+- % of weed control
 
-- Herbicide dose (g ha&lt;sup&gt;-1&lt;/sup&gt; or L ha&lt;sup&gt;-1&lt;/sup&gt;
+- Herbicide dose (g ha&lt;sup&gt;-1&lt;/sup&gt; or L ha&lt;sup&gt;-1&lt;/sup&gt;)
 
 --
 
@@ -305,7 +307,7 @@ A) weight, g
 
 B) percent, %
 
-<div class="countdown" id="timer_6261a2e1" style="right:0;bottom:0;" data-warnwhen="0">
+<div class="countdown" id="timer_6261d7b1" style="right:0;bottom:0;" data-warnwhen="0">
 <code class="countdown-time"><span class="countdown-digits minutes">00</span><span class="countdown-digits colon">:</span><span class="countdown-digits seconds">30</span></code>
 </div>
 
@@ -321,16 +323,88 @@ B) percent, %
 
 ---
 
-## Model parameters
+## Dose response analysis
 
-&lt;br&gt;&lt;br&gt;
+.panelset[
+.panel[.panel-name[Dataset]
 
+```r
+library(RCurl)
+library(tidyverse)
+df_path &lt;- getURL("https://raw.githubusercontent.com/maxwelco/workshop-esalq/main/data/dose_resposta.csv")
+
+dose &lt;- read_csv(df_path)
+dose
+```
+
+```
+## # A tibble: 144 × 6
+##    biotype run     rep  rate control biomass
+##    &lt;chr&gt;   &lt;chr&gt; &lt;dbl&gt; &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;
+##  1 R       I         1   0         0    0.58
+##  2 R       I         2   0         0    0.54
+##  3 R       I         3   0         0    0.41
+##  4 R       I         4   0         0    0.5 
+##  5 R       I         1  13.1       5    0.5 
+##  6 R       I         2  13.1       5    0.64
+##  7 R       I         3  13.1      10    0.47
+##  8 R       I         4  13.1      10    0.72
+##  9 R       I         1  26.2      15    0.52
+## 10 R       I         2  26.2      10    0.54
+## # … with 134 more rows
+```
+]
+
+
+.panel[.panel-name[Model and parameters]
+
+
+
+```r
+model &lt;- drm(biomass ~ # response variable
+               rate, # explanatory variable
+             biotype, # treatments
+             fct = W1.3(), # equation
+             data = dose) # datase
+summary(model)
+```
+
+```
+## 
+## Model fitted: Weibull (type 1) with lower limit at 0 (3 parms)
+## 
+## Parameter estimates:
+## 
+##       Estimate Std. Error t-value   p-value    
+## b:R   0.636827   0.120774  5.2729 5.064e-07 ***
+## b:S   0.593758   0.184850  3.2121 0.0016399 ** 
+## d:R   0.555899   0.032958 16.8670 &lt; 2.2e-16 ***
+## d:S   0.530099   0.037845 14.0072 &lt; 2.2e-16 ***
+## e:R 686.473143 131.456282  5.2221 6.372e-07 ***
+## e:S  19.112141   4.849070  3.9414 0.0001282 ***
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+## 
+## Residual standard error:
+## 
+##  0.1073916 (138 degrees of freedom)
+```
+
+```r
+plot(model)
+```
+
+&lt;img src="index_files/figure-html/unnamed-chunk-7-1.png" width="100%" /&gt;
+
+]
+.panel[.panel-name[Plot]
 &lt;center&gt;
-&lt;img src="images/table.png" width="1000px"/&gt;
+&lt;img src="index_files/figure-html/unnamed-chunk-19-1.png" &gt;
 &lt;/center&gt;
+]
 
+]
 
-.footnote[Source: Oliveira et al (2018)]
 
 ---
 
@@ -349,9 +423,7 @@ B) percent, %
 
 - Model parameters should have biological meaning
 
-- Dose response can be performed using R, SAS or other statistical software
-
----
+- Dose response can be performed using **R**, SAS or other statistical software
 
 
 

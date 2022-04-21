@@ -92,6 +92,7 @@ xaringanExtra::use_share_again()
 xaringanExtra::use_scribble() # use letter S
 xaringanExtra::use_fit_screen()
 xaringanExtra::use_broadcast() # use P
+xaringanExtra::use_panelset()
 ```
 
 
@@ -125,7 +126,7 @@ background-size: contain
 
 - Data points
 
-- Interpretation
+- Analysis and interpretation
 
 
 
@@ -177,7 +178,7 @@ background-size: contain
 
 - Toxicology
 
-- pharmacology and drug development
+- Pharmacology and drug development
 
 - Epidemiology
 
@@ -195,7 +196,7 @@ background-size: contain
 #### Weed research
 
 .pull-left[
-- Measure and compare the response of weeds and crops to physical, chemical, biological, or temporal stimuli
+- Response of weeds and crops to physical, chemical, biological, or temporal stimuli
   - **Herbicide dose response**
   - Critical time for weed control
   - Cumulative weed germination  
@@ -310,9 +311,9 @@ plot(m)
 
 - Plant biomass (g) or relative biomass (%)
 
-- Percent of weed control
+- % of weed control
 
-- Herbicide dose (g ha<sup>-1</sup> or L ha<sup>-1</sup>
+- Herbicide dose (g ha<sup>-1</sup> or L ha<sup>-1</sup>)
 
 --
 
@@ -346,16 +347,43 @@ plot(m)
 
 ---
 
-## Model parameters
+## Dose response analysis
 
-<br><br>
+.panelset[
+.panel[.panel-name[Dataset]
+```{r}
+library(RCurl)
+library(tidyverse)
+df_path <- getURL("https://raw.githubusercontent.com/maxwelco/workshop-esalq/main/data/dose_resposta.csv")
 
+dose <- read_csv(df_path)
+dose
+```
+]
+
+
+.panel[.panel-name[Model and parameters]
+
+
+```{r}
+model <- drm(biomass ~ # response variable
+               rate, # explanatory variable
+             biotype, # treatments
+             fct = W1.3(), # equation
+             data = dose) # datase
+summary(model)
+plot(model)
+```
+
+]
+.panel[.panel-name[Plot]
 <center>
-<img src="images/table.png" width="1000px"/>
+<img src="index_files/figure-html/unnamed-chunk-19-1.png" >
 </center>
+]
 
+]
 
-.footnote[Source: Oliveira et al (2018)]
 
 ---
 
@@ -374,7 +402,7 @@ plot(m)
 
 - Model parameters should have biological meaning
 
-- Dose response can be performed using R, SAS or other statistical software
+- Dose response can be performed using **R**, SAS or other statistical software
 
 
 
