@@ -376,8 +376,6 @@ plot(m)
 
 - Dose response can be performed using R, SAS or other statistical software
 
----
-
 
 
 ---
