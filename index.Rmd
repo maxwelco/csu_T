@@ -1,5 +1,5 @@
 ---
-title: "Dose Response Biological Assay in Weed Science"
+title: "Dose Response in Weed Research"
 subtitle: "BSPM 308"  
 author: 
   - "Dr. Maxwel Coura Oliveira (he/him/his)"
@@ -24,6 +24,8 @@ library(leaflet.extras)
 library(icons)
 library(tidyUSDA)
 library(plotly)
+library(countdown)
+
 # to read https://www150.statcan.gc.ca/n1/pub/95-640-x/2016001/article/14804-eng.htm
 # https://www.thecanadianencyclopedia.ca/en/article/agriculture-in-canada#:~:text=Among%20Canada's%20top%20agricultural%20products,agricultural%20products%20in%20the%20world.
 ```
@@ -56,59 +58,6 @@ knitr::opts_chunk$set(
 
 
 
-```{r features, include=FALSE, warning=FALSE}
-xaringanExtra::use_search(show_icon = TRUE,
-                          position = "top-left")
-xaringanExtra::use_webcam()
-#xaringanExtra::use_freezeframe()
-xaringanExtra::use_tile_view() # use letter O
-xaringanExtra::use_share_again()
-xaringanExtra::use_scribble() # use letter S
-xaringanExtra::use_fit_screen()
-xaringanExtra::use_broadcast() # use P
-```
-
-
-## Announcements
-
-
-
-- Read Zimdahl Chapter 10 - Methods of Weed Management and Control
-
-- Homework #2 due tomorrow (04/27/2022)
-
-- Lab this week: Grass weed identification 
-
----
-
-background-image: url(https://source.unsplash.com/ZYmk2tZ1fck)
-background-position: right
-background-size: contain
-
-## Agenda
-
-
-- History of dose response
-  
-<br>
-- Curve
-  - Parameters
-  
-<br>
-- Data points
-
-<br>
-- Interpretation
-
-
-
-
-.footnote[Image: Daniel Norris/Unsplash]
-
-
-
----
-
 class: middle, center
 
 ## Maxwel Coura Oliveira
@@ -130,6 +79,60 @@ class: middle, center
 - Describe my social media
 
 - My blog, github, twitter
+
+---
+
+```{r features, include=FALSE, warning=FALSE}
+xaringanExtra::use_search(show_icon = TRUE,
+                          position = "top-left")
+xaringanExtra::use_webcam()
+#xaringanExtra::use_freezeframe()
+xaringanExtra::use_tile_view() # use letter O
+xaringanExtra::use_share_again()
+xaringanExtra::use_scribble() # use letter S
+xaringanExtra::use_fit_screen()
+xaringanExtra::use_broadcast() # use P
+```
+
+
+## Announcements
+
+
+
+- Read Knezevic et al. (2007) - Utilizing R Software Package for Dose-Response Studies:
+ The Concept and Data Analysis
+
+- Homework #2 due tomorrow (04/27/2022)
+
+- Lab this week: Grass weed identification 
+
+---
+
+background-image: url(https://source.unsplash.com/erxoxRcdMQA)
+background-position: right
+background-size: contain
+
+## Agenda
+
+
+- History of dose response
+
+- Definition and uses
+  
+- Curve
+  
+- Parameters
+
+- Data points
+
+- Interpretation
+
+
+
+
+.footnote[Image: Jessica Fadel/Unsplash]
+
+
 
 ---
 
@@ -162,17 +165,47 @@ background-size: contain
 
 ---
 
-## Weed science research
+## Dose response
 
-#### Goal
+#### Definition
+
+> The dose–response relationship describes the magnitude of the response of an organism, as a function of exposure (or doses) to a stimulus or stressor (usually a chemical) after a certain exposure time
+
+--
+
+#### Applications
+
+- Toxicology
+
+- pharmacology and drug development
+
+- Epidemiology
+
+- Biology
+    - Weed research
+
+
+
+
+
+---
+
+## Dose response 
+
+#### Weed research
 
 .pull-left[
-- Biological assay is to measure and compare the response of weeds and crops to physical, chemical, biological, or temporal stimuli
+- Measure and compare the response of weeds and crops to physical, chemical, biological, or temporal stimuli
+  - **Herbicide dose response**
+  - Critical time for weed control
+  - Cumulative weed germination  
+
+
 
 - Summaries of biological assays require the use
- of nonlinear regression models with upper and lower limits,
+ of **nonlinear regression** models with upper and lower limits,
  which provide information on the dose required to control the
- plant species of interes
+ plant species of interest
 ]
 
 .pull-right[
@@ -182,11 +215,128 @@ background-size: contain
 ]
 
 .footnote[Image: [agsci.colostate.edu/weedscience](https://agsci.colostate.edu/weedscience/pictures/)]
+
+
 ---
 
-## Curve
+## Dose response curve
 
-```{r message = FALSE, warning = FALSE, echo = FALSE, fig.align='center', out.width='50%', fig.height = 5, fig.width = 5}
+> A **dose–response curve** is a coordinate graph relating the magnitude of a dose (stimulus) to the response of a biological system
+
+--
+
+#### Which curve best describes a dose response relationship?
+
+<center>
+<img src="images/curve.png" width="400px"/>
+</center>
+
+
+```{r echo = FALSE}
+countdown(minutes = 0, seconds = 30)
+```
+
+---
+
+## Dose response curve
+
+#### Equation
+
+The most commonly used model for sigmoidal dose-response curves is the log-logistic model with 3 - 4 parameters
+
+<br>
+
+.pull-left[
+
+$$
+Y = c + \frac{d-c}{1 + exp[b(logx - loge)]}
+$$
+]
+
+.pull-right[
+- Upper limit, d
+
+- Lower limit, c
+
+- Inflection point, e
+
+- Slope, b
+]
+
+
+
+---
+
+## Dose response curve
+
+.pull-left[
+#### Parameters
+
+- Upper limit, d
+
+- Lower limit, c
+
+- Inflection point, e
+
+- Slope, b
+]
+
+
+.pull-right[
+```{r message = FALSE, warning = FALSE, echo = FALSE, fig.align='center', out.width='70%', fig.height = 6, fig.width = 6}
+dose <- 1:2
+resp <- rnorm(length(dose))
+# no need to set the seed for the random number generation!
+m <- drm(resp ~ dose, fct = LL.5())
+plot(m)
+```
+]
+
+
+
+---
+
+## Dose response curve
+
+<center>
+<img src="images/curve2.png" width="500px"/>
+</center>
+
+.footnote[Source: Knezevic et al. 2007]
+
+---
+
+## Typical data variables
+
+- Plant biomass (g) or relative biomass (%)
+
+- Percent of weed control
+
+- Herbicide dose (g ha<sup>-1</sup> or L ha<sup>-1</sup>
+
+--
+
+<br><br>
+
+#### What is the best variable for describing dose response studies?
+
+A) weight, g
+
+B) percent, %
+
+```{r echo = FALSE}
+countdown(minutes = 0, seconds = 30)
+```
+
+---
+
+## Number of data points
+
+- The shape of the dose response curve is influenced by the distribution of the data it describes
+
+- Selection of herbicide doses is critical
+
+```{r message = FALSE, warning = FALSE, echo = FALSE, fig.align='center', out.width='40%', fig.height = 6, fig.width = 6}
 dose <- 1:2
 resp <- rnorm(length(dose))
 # no need to set the seed for the random number generation!
@@ -196,15 +346,37 @@ plot(m)
 
 ---
 
-## Parameters
+## Model parameters
+
+<br><br>
+
+<center>
+<img src="images/table.png" width="1000px"/>
+</center>
 
 
+.footnote[Source: Oliveira et al (2018)]
 
 ---
 
-## Number of data points
+## Take home message
 
+- Dose response relationship is best describe with a sigmoid curve and log-logistic models
 
+- Selection of herbicide doses is critical
+
+- Dose response uses in herbicide-weed research
+    - Herbicide efficacy
+    
+    - Herbicide resistance
+    
+    - Crop tolerance
+
+- Model parameters should have biological meaning
+
+- Dose response can be performed using R, SAS or other statistical software
+
+---
 
 
 
