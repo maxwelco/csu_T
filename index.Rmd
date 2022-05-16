@@ -158,7 +158,6 @@ background-size: contain
 
 --
 
-
 **Paracelsus**, the "father of toxicology"
 
 
@@ -187,13 +186,11 @@ background-size: contain
 
 
 
-
-
 ---
 
 ## Dose response 
 
-#### Weed research
+#### Ciêcia da Planta daninha
 
 .pull-left[
 - Response of weeds and crops to physical, chemical, biological, or temporal stimuli
@@ -217,6 +214,14 @@ background-size: contain
 
 .footnote[Image: [agsci.colostate.edu/weedscience](https://agsci.colostate.edu/weedscience/pictures/)]
 
+
+---
+
+## Dose response
+
+<center>
+<img src="images/mental.png" width="400px"/>
+</center>
 
 ---
 
